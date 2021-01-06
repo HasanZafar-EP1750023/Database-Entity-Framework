@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="newdataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="departments">
+          <Key>
+            <PropertyRef Name="department_no" />
+          </Key>
+          <Property Name="department_no" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="department_name" Type="varchar" MaxLength="50" />
+          <Property Name="emp_no" Type="int" Nullable="false" />
+          <Property Name="employe_experience" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="employees">
+          <Key>
+            <PropertyRef Name="emp_no" />
+          </Key>
+          <Property Name="emp_no" Type="int" Nullable="false" />
+          <Property Name="birth_date" Type="varchar" MaxLength="15" />
+          <Property Name="first_name" Type="varchar" MaxLength="10" />
+          <Property Name="last_name" Type="varchar" MaxLength="10" />
+          <Property Name="gender" Type="int" />
+          <Property Name="hire_date" Type="varchar" MaxLength="15" />
+          <Property Name="contact" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="experience">
+          <Key>
+            <PropertyRef Name="employe_experience" />
+          </Key>
+          <Property Name="employe_experience" Type="int" Nullable="false" />
+          <Property Name="employe_level" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="salaries">
+          <Key>
+            <PropertyRef Name="emp_no" />
+          </Key>
+          <Property Name="emp_no" Type="int" Nullable="false" />
+          <Property Name="salary" Type="int" />
+          <Property Name="from_date" Type="varchar" MaxLength="15" />
+          <Property Name="to_date" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="title">
+          <Key>
+            <PropertyRef Name="emp_no" />
+          </Key>
+          <Property Name="emp_no" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <Association Name="FK_departments_departments">
+          <End Role="experience" Type="Self.experience" Multiplicity="1" />
+          <End Role="departments" Type="Self.departments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="experience">
+              <PropertyRef Name="employe_experience" />
+            </Principal>
+            <Dependent Role="departments">
+              <PropertyRef Name="employe_experience" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_departments_Employees">
+          <End Role="employees" Type="Self.employees" Multiplicity="1" />
+          <End Role="departments" Type="Self.departments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="emp_no" />
+            </Principal>
+            <Dependent Role="departments">
+              <PropertyRef Name="emp_no" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="newdataModelStoreContainer">
+          <EntitySet Name="departments" EntityType="Self.departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employees" EntityType="Self.employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="experience" EntityType="Self.experience" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="salaries" EntityType="Self.salaries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="title" EntityType="Self.title" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_departments_departments" Association="Self.FK_departments_departments">
+            <End Role="experience" EntitySet="experience" />
+            <End Role="departments" EntitySet="departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_departments_Employees" Association="Self.FK_departments_Employees">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="departments" EntitySet="departments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="newdataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="department_no" />
+          </Key>
+          <Property Name="department_no" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="department_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emp_no" Type="Int32" Nullable="false" />
+          <Property Name="employe_experience" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="experience" Relationship="Self.FK_departments_departments" FromRole="departments" ToRole="experience" />
+          <NavigationProperty Name="employee" Relationship="Self.FK_departments_Employees" FromRole="departments" ToRole="employees" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="emp_no" />
+          </Key>
+          <Property Name="emp_no" Type="Int32" Nullable="false" />
+          <Property Name="birth_date" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="first_name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="Int32" />
+          <Property Name="hire_date" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="contact" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="departments" Relationship="Self.FK_departments_Employees" FromRole="employees" ToRole="departments" />
+        </EntityType>
+        <EntityType Name="experience">
+          <Key>
+            <PropertyRef Name="employe_experience" />
+          </Key>
+          <Property Name="employe_experience" Type="Int32" Nullable="false" />
+          <Property Name="employe_level" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="departments" Relationship="Self.FK_departments_departments" FromRole="experience" ToRole="departments" />
+        </EntityType>
+        <EntityType Name="salary">
+          <Key>
+            <PropertyRef Name="emp_no" />
+          </Key>
+          <Property Name="emp_no" Type="Int32" Nullable="false" />
+          <Property Name="salary1" Type="Int32" />
+          <Property Name="from_date" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="to_date" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="title">
+          <Key>
+            <PropertyRef Name="emp_no" />
+          </Key>
+          <Property Name="emp_no" Type="Int32" Nullable="false" />
+          <Property Name="title1" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_departments_departments">
+          <End Role="experience" Type="Self.experience" Multiplicity="1" />
+          <End Role="departments" Type="Self.department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="experience">
+              <PropertyRef Name="employe_experience" />
+            </Principal>
+            <Dependent Role="departments">
+              <PropertyRef Name="employe_experience" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_departments_Employees">
+          <End Role="employees" Type="Self.employee" Multiplicity="1" />
+          <End Role="departments" Type="Self.department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="emp_no" />
+            </Principal>
+            <Dependent Role="departments">
+              <PropertyRef Name="emp_no" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="newdataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="departments" EntityType="Self.department" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="experiences" EntityType="Self.experience" />
+          <EntitySet Name="salaries" EntityType="Self.salary" />
+          <EntitySet Name="titles" EntityType="Self.title" />
+          <AssociationSet Name="FK_departments_departments" Association="Self.FK_departments_departments">
+            <End Role="experience" EntitySet="experiences" />
+            <End Role="departments" EntitySet="departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_departments_Employees" Association="Self.FK_departments_Employees">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="departments" EntitySet="departments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="newdataModelStoreContainer" CdmEntityContainer="newdataEntities">
+          <EntitySetMapping Name="departments">
+            <EntityTypeMapping TypeName="newdataModel.department">
+              <MappingFragment StoreEntitySet="departments">
+                <ScalarProperty Name="department_no" ColumnName="department_no" />
+                <ScalarProperty Name="department_name" ColumnName="department_name" />
+                <ScalarProperty Name="emp_no" ColumnName="emp_no" />
+                <ScalarProperty Name="employe_experience" ColumnName="employe_experience" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="newdataModel.employee">
+              <MappingFragment StoreEntitySet="employees">
+                <ScalarProperty Name="emp_no" ColumnName="emp_no" />
+                <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="hire_date" ColumnName="hire_date" />
+                <ScalarProperty Name="contact" ColumnName="contact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="experiences">
+            <EntityTypeMapping TypeName="newdataModel.experience">
+              <MappingFragment StoreEntitySet="experience">
+                <ScalarProperty Name="employe_experience" ColumnName="employe_experience" />
+                <ScalarProperty Name="employe_level" ColumnName="employe_level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="salaries">
+            <EntityTypeMapping TypeName="newdataModel.salary">
+              <MappingFragment StoreEntitySet="salaries">
+                <ScalarProperty Name="emp_no" ColumnName="emp_no" />
+                <ScalarProperty Name="salary1" ColumnName="salary" />
+                <ScalarProperty Name="from_date" ColumnName="from_date" />
+                <ScalarProperty Name="to_date" ColumnName="to_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="titles">
+            <EntityTypeMapping TypeName="newdataModel.title">
+              <MappingFragment StoreEntitySet="title">
+                <ScalarProperty Name="emp_no" ColumnName="emp_no" />
+                <ScalarProperty Name="title1" ColumnName="title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

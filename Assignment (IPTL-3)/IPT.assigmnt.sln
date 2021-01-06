@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPT.assigmnt", "IPT.assigmnt\IPT.assigmnt.csproj", "{D24389A7-B0B1-4617-9287-B72AB90F7EEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPT.test", "IPT.test\IPT.test.csproj", "{7D48DD9F-2EAD-4366-B420-8E1C8F32EDAD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D24389A7-B0B1-4617-9287-B72AB90F7EEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D24389A7-B0B1-4617-9287-B72AB90F7EEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D24389A7-B0B1-4617-9287-B72AB90F7EEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D24389A7-B0B1-4617-9287-B72AB90F7EEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D48DD9F-2EAD-4366-B420-8E1C8F32EDAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D48DD9F-2EAD-4366-B420-8E1C8F32EDAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D48DD9F-2EAD-4366-B420-8E1C8F32EDAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D48DD9F-2EAD-4366-B420-8E1C8F32EDAD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
